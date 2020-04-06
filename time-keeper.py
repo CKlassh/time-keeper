@@ -46,7 +46,10 @@ def time_Keeper(start, end):
     totalHours = int((end - start)/60)
     totalMinutes = (end - start)%60
 
-    return "Time Spent is: " + str(totalHours) +"H:" + str(totalMinutes) + "M"
+    if totalMinutes < 10:
+        totalMinutes = str(totalMinutes).zfill(2)
+
+    return str(totalHours) +":" + str(totalMinutes)
 
 
 def clicked(value, value1):
@@ -58,14 +61,13 @@ def clicked(value, value1):
     Input   : str   : Value, Value2 assumes in ##:##, ##:## format
     Output  : None
     """
-    ansLabel = Label(frame, text=time_Keeper(value, value1), bg="#5c5757")
+    ansLabel = Label(frame, text="Time Spent"+ time_Keeper(value, value1), bg="#5c5757")
     ansLabel.grid(row=3, column=1)
     now = datetime.now()
     timestamp = datetime.timestamp(now)
-    datestamp = datetime.fromtimestamp(int(timestamp))
-    f = open('Log.txt','a')
-    f.write("\n\n" + "Start Time    :   "+  inputStart.get() + "\n" + 
-            str(datestamp) + " : " + time_Keeper(value, value1) + "\n")
+    date = now.strftime("%Y-%M-%d")
+    f = open('timelog.csv','a')
+    f.write(str(date) + ",Programming,"+inputStart.get()+","+ inputEnd.get()+ ',' + time_Keeper(value, value1) +"\n")
     f.close
 
 # Pack a frame to center the app
