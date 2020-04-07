@@ -62,45 +62,56 @@ def clicked(value, value1):
     Output  : None
     """
     ansLabel = Label(frame, text="Time Spent"+ time_Keeper(value, value1), bg="#5c5757")
-    ansLabel.grid(row=3, column=1)
+    ansLabel.grid(row=4, column=1)
     now = datetime.now()
     timestamp = datetime.timestamp(now)
     date = now.strftime("%Y-%M-%d")
-    f = open('timelog.csv','a')
-    f.write(str(date) + ",Programming,"+inputStart.get()+","+ inputEnd.get()+ ',' + time_Keeper(value, value1) +"\n")
-    f.close
+    if selected.get():
+        f = open('timelog.csv','a')
+        f.write(str(date) + ","+inputProject.get()+","+inputStart.get()+","+ inputEnd.get()+ ',' + time_Keeper(value, value1) +"\n")
+        f.close
 
 # Pack a frame to center the app
-frame = LabelFrame(root, bg="#5c5757", text="Enter Start and End Time", pady=20, padx=10)
+frame = LabelFrame(root, bg="#5c5757", text="Enter Start and End Time", pady=10, padx=10)
 frame.pack(padx=20, pady=20)
+
+# Input Field Project Name
+inputProject = Entry(frame, width=35, bg="#efecec")
+inputProject.grid(row=0, column=0, columnspan=2, pady=10, sticky=E)
+inputProject.insert(0, "Project Name")
 
 #Label "Start Time[HH:MM]"
 startLabel = Label(frame, text="Start Time[HH:MM]", bg="#5c5757")
-startLabel.grid(row=0, column=0)
+startLabel.grid(row=1, column=0)
 
 # Input Field Beside Start Time Label
 inputStart = Entry(frame, width=20, bg="#efecec")
-inputStart.grid(row=0, column=1)
+inputStart.grid(row=1, column=1)
 
 # Label "End Time"
 endLabel = Label(frame, text="End Time[HH:MM]", bg="#5c5757")
-endLabel.grid(row=1, column=0)
+endLabel.grid(row=2, column=0)
 
 # Input Field Beside End Time Label
 inputEnd = Entry(frame, width=20, bg="#efecec")
-inputEnd.grid(row=1, column=1)
+inputEnd.grid(row=2, column=1)
 
 # Label displaying "Current Time is" then changes to display spent time after function call
 ansLabel = Label(frame, text="Current Time is: ", bg="#5c5757")
-ansLabel.grid(row=3, column=1)
+ansLabel.grid(row=4, column=1)
 
 # Submit button
 ansButton = Button(frame, text="Execute", bg="#62929a", command=lambda: clicked(str(inputStart.get()), str(inputEnd.get())))
-ansButton.grid(row=3, column=0)
+ansButton.grid(row=4, column=0)
+
+# Radio button to toggle logging
+selected = IntVar()
+toggle = Checkbutton(frame, text="Log",bg="#5c5757", activebackground="#5c5757", variable=selected)
+toggle.grid(row=5, column=0)
 
 # Time Stamp Label Displaying the current time.
 timeLabel = Label(frame, bg="#5c5757")
-timeLabel.grid(row=4, column=1)
+timeLabel.grid(row=5, column=1)
 
 
 
