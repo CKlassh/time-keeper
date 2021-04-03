@@ -1,0 +1,8 @@
+.gitignore
+.gitignore~
+..gitignore.un~  
+timelog.csv
+README.md  
+time-keeper.py  
+time-keeper.py~
+.time-keeper.py.un~
